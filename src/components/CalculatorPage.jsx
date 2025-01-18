@@ -1,11 +1,11 @@
 import { Container } from "@mui/material";
 
-const HomePage = () => {
+const CalculatorPage = () => {
   return (
     <Container sx={{ backgroundColor: "gray" }}>
-      <h1>Homepage</h1>
+      <h1>Calculator</h1>
     </Container>
   );
 };
 
-export default HomePage;
+export default CalculatorPage;
