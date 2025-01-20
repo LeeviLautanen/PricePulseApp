@@ -1,10 +1,34 @@
-import { Container } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 
 const HomePage = () => {
   return (
-    <Container sx={{ backgroundColor: "gray" }}>
-      <h1>Homepage</h1>
-    </Container>
+    <Box
+      sx={{
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
+        gap: "1rem",
+        backgroundImage: "linear-gradient(to top, #21BF73, #12663E)",
+      }}
+    >
+      <Box
+        sx={{
+          height: "8rem",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Typography
+          sx={{
+            fontSize: 40,
+            fontWeight: 400,
+          }}
+        >
+          PricePulse
+        </Typography>
+      </Box>
+    </Box>
   );
 };
 
