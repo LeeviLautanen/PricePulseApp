@@ -1,3 +1,4 @@
+import { Box } from "@mui/material";
 import {
   Chart as ChartJS,
   Tooltip,
@@ -29,6 +30,7 @@ const Chart = (props) => {
         display: false,
       },
     },
+
     scales: {
       x: {
         title: {
@@ -36,15 +38,14 @@ const Chart = (props) => {
           text: "Time (Hours)",
           font: {
             size: 14,
-            weight: "bold",
           },
-          color: "#FFFFFF",
+          color: "black",
         },
         grid: {
-          color: "rgba(255, 255, 255, 0.5)",
+          color: "rgba(0, 0, 0, 0.3)",
         },
         ticks: {
-          color: "white",
+          color: "black",
         },
       },
       y: {
@@ -53,15 +54,14 @@ const Chart = (props) => {
           text: "Price (c / kWh)",
           font: {
             size: 14,
-            weight: "bold",
           },
-          color: "#FFFFFF",
+          color: "black",
         },
         grid: {
-          color: "rgba(255, 255, 255, 0.5)",
+          color: "rgba(0, 0, 0, 0.3)",
         },
         ticks: {
-          color: "white",
+          color: "black",
         },
       },
     },
@@ -71,15 +71,26 @@ const Chart = (props) => {
     labels: props.labels,
     datasets: [
       {
-        label: "Dataset 1",
+        label: "Price data",
         data: props.data,
-        borderColor: "rgb(255, 255, 255)",
-        backgroundColor: "rgb(29, 116, 0)",
+        borderColor: "rgb(0, 0, 0)",
+        backgroundColor: "rgb(56, 154, 24)",
       },
     ],
   };
 
-  return <Line options={options} data={data} />;
+  return (
+    <Box
+      sx={{
+        width: "100%",
+        height: "100%",
+        backgroundColor: "white",
+        borderRadius: "5px",
+      }}
+    >
+      <Line options={options} data={data} />
+    </Box>
+  );
 };
 
 export default Chart;

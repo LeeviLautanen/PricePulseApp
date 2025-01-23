@@ -8,13 +8,17 @@ import {
 } from "@mui/material";
 import React, { useEffect } from "react";
 import Chart from "./Chart";
+import PriceTable from "./PriceTable";
 
 const PriceChartPage = () => {
   const [priceData, setPriceData] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
   const [selectedButton, setSelectedButton] = React.useState(0);
+
   const [chartData, setChartData] = React.useState([]);
   const [chartLabels, setChartLabels] = React.useState([]);
+
+  const [tableRowData, setTableRowData] = React.useState([]);
 
   const buttonStyling = {
     backgroundColor: "#FFFFFF",
@@ -30,38 +34,71 @@ const PriceChartPage = () => {
 
   const updateChartData = (data) => {
     let slicedData;
-    switch (selectedButton) {
-      case 0:
-        slicedData = data.slice(-12);
-        break;
-      case 1:
-        slicedData = data.slice(-24);
-        break;
-      case 2:
-        slicedData = data.slice(-48);
-        break;
-      default:
-        slicedData = data;
-        break;
+    if (selectedButton === 0) {
+      slicedData = data.slice(-13);
+    } else if (selectedButton === 1) {
+      slicedData = data.slice(-25);
+    } else if (selectedButton === 2) {
+      slicedData = data;
     }
 
     if (slicedData && slicedData.length > 0) {
-      setChartData(slicedData.map((item) => item.price));
+      setChartData(slicedData.map((item) => item.value / 10.0)); // Prices are 10x for some reason
       setChartLabels(
         slicedData.map((item) => {
-          const newDate = new Date(item.startDate);
+          const newDate = new Date(item.date);
           return newDate.getHours().toString();
         })
       );
     }
   };
 
-  const fetchLatest = async () => {
+  const updateTableData = (data) => {
+    const slicedData = data.slice(-6);
+
+    if (slicedData && slicedData.length > 0) {
+      const tableRows = slicedData.map((item, index) => {
+        const date = new Date(item.date);
+
+        const day = date
+          .toLocaleDateString("en-US", {
+            weekday: "long",
+          })
+          .slice(0, 3);
+
+        const time = `${date.getHours()}:00`;
+
+        const change = item.value / data[43 + index - 1].value - 1.0;
+
+        const price = item.value / 10.0;
+
+        return {
+          day: day,
+          time: time,
+          change: (change * 100).toFixed(2),
+          price: price.toFixed(2),
+        };
+      });
+
+      tableRows.reverse();
+      setTableRowData(tableRows);
+    }
+  };
+
+  const fetchData = async () => {
+    const end = new Date();
+    const start = new Date();
+    start.setHours(start.getHours() - 48);
+
     try {
-      const response = await fetch("/api/v1/latest-prices.json");
+      const response = await fetch(
+        `https://sahkotin.fi/prices?fix&vat&start=${start.toISOString()}&end=${end.toISOString()}`
+      );
       const data = await response.json();
+
       setPriceData(data.prices);
       updateChartData(data.prices);
+      updateTableData(data.prices);
       setLoading(false);
     } catch (error) {
       console.error("Error fetching price data:", error);
@@ -69,15 +106,17 @@ const PriceChartPage = () => {
   };
 
   useEffect(() => {
-    fetchLatest();
+    fetchData();
   }, []);
 
   useEffect(() => {
     if (priceData.length > 0) {
       updateChartData(priceData);
+      updateTableData(priceData);
     }
   }, [selectedButton, priceData]);
 
+  // Loading screen
   if (loading) {
     return (
       <Box
@@ -173,9 +212,11 @@ const PriceChartPage = () => {
           </Button>
         </ButtonGroup>
       </Box>
-      <h1>{priceData[0].price}</h1>
       <Container sx={{ height: "250px" }}>
         <Chart labels={chartLabels} data={chartData}></Chart>
+      </Container>
+      <Container sx={{ width: "100%" }}>
+        <PriceTable data={tableRowData}></PriceTable>
       </Container>
     </Box>
   );
