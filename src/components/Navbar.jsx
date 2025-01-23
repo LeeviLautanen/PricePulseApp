@@ -32,6 +32,7 @@ function App() {
         onChange={(event, newValue) => {
           setValue(newValue);
         }}
+        sx={{ paddingY: "0.5rem" }}
       >
         <BottomNavigationAction
           label="Chart"
