@@ -55,9 +55,9 @@ const AddAppliance = ({ onAddAppliance }) => {
       <Container>
         <Box
           sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '1rem',
+            display: "flex",
+            flexDirection: "column",
+            gap: "1rem",
           }}
         >
           <input
@@ -66,32 +66,32 @@ const AddAppliance = ({ onAddAppliance }) => {
             placeholder="Appliance Name"
             onChange={(e) => setApplianceName(e.target.value)}
             style={{
-              height: '3rem',
-              width: '100%',
-              textAlign: 'center',
-              fontSize: '1.5rem',
-              backgroundColor: '#ffffff',
-              color: 'black',
-              border: '0.25px rgb(0, 0, 0) solid',
-              borderRadius: '5px',
-              marginBottom: '1rem',
+              height: "3rem",
+              width: "100%",
+              textAlign: "center",
+              fontSize: "1.5rem",
+              backgroundColor: "#ffffff",
+              color: "black",
+              border: "0.25px rgb(0, 0, 0) solid",
+              borderRadius: "5px",
+              marginBottom: "1rem",
             }}
           />
           <input
             type="text"
             align="center"
-            placeholder="Consumption (kWh)"
+            placeholder="Power (kW)"
             onChange={(e) => setElectricity(e.target.value)}
             style={{
-              height: '3rem',
-              width: '100%',
-              textAlign: 'center',
-              fontSize: '1.5rem',
-              backgroundColor: '#ffffff',
-              color: 'black',
-              border: '0.25px rgb(0, 0, 0) solid',
-              borderRadius: '5px',
-              marginBottom: '1rem',
+              height: "3rem",
+              width: "100%",
+              textAlign: "center",
+              fontSize: "1.5rem",
+              backgroundColor: "#ffffff",
+              color: "black",
+              border: "0.25px rgb(0, 0, 0) solid",
+              borderRadius: "5px",
+              marginBottom: "1rem",
             }}
           />
           <input
@@ -100,25 +100,25 @@ const AddAppliance = ({ onAddAppliance }) => {
             placeholder="Ideal price (c/kWh)"
             onChange={(e) => setIdealPrice(e.target.value)}
             style={{
-              height: '3rem',
-              width: '100%',
-              textAlign: 'center',
-              fontSize: '1.5rem',
-              backgroundColor: '#ffffff',
-              color: 'black',
-              border: '0.25px rgb(0, 0, 0) solid',
-              borderRadius: '5px',
+              height: "3rem",
+              width: "100%",
+              textAlign: "center",
+              fontSize: "1.5rem",
+              backgroundColor: "#ffffff",
+              color: "black",
+              border: "0.25px rgb(0, 0, 0) solid",
+              borderRadius: "5px",
             }}
           />
         </Box>
         <Box
           sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            width: '100%',
-            marginTop: '1rem',
-            gap: '1rem',
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            width: "100%",
+            marginTop: "1rem",
+            gap: "1rem",
           }}
         >
           <Button
@@ -126,13 +126,13 @@ const AddAppliance = ({ onAddAppliance }) => {
             sx={{
               backgroundColor: "#21BF73",
               color: "white",
-              fontSize: '1.5rem',
+              fontSize: "1.5rem",
               "&:hover": { backgroundColor: "#12663E" },
               borderRadius: "20px",
               border: "2px solid rgb(219, 219, 219)",
               textAlign: "center",
               width: "60%",
-              textTransform: "none"
+              textTransform: "none",
             }}
           >
             Save ✓
@@ -143,13 +143,13 @@ const AddAppliance = ({ onAddAppliance }) => {
             sx={{
               backgroundColor: "rgb(188, 73, 73)",
               color: "white",
-              fontSize: '1.5rem',
+              fontSize: "1.5rem",
               "&:hover": { backgroundColor: "rgb(102, 19, 19)" },
               borderRadius: "20px",
               border: "2px solid rgb(219, 219, 219)",
               textAlign: "center",
               width: "60%",
-              textTransform: "none"
+              textTransform: "none",
             }}
           >
             Cancel ✗
