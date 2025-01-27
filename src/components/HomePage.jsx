@@ -42,7 +42,7 @@ const HomePage = () => {
         display: "flex",
         flexDirection: "column",
         gap: "1rem",
-        backgroundImage: "linear-gradient(to top, #21BF73, #12663E)",
+        backgroundImage: "linear-gradient(to bottom, #21BF73, #12663E)",
       }}
     >
       <Box
