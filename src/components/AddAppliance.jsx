@@ -49,7 +49,7 @@ const AddAppliance = ({ onAddAppliance }) => {
             fontSize: "2rem",
           }}
         >
-          Add Appliance
+          Add New Appliance
         </Typography>
       </Box>
       <Container>

@@ -62,7 +62,7 @@ const AppliancesPage = () => {
           >
             <Box
               sx={{
-                height: "5rem",
+                height: "8rem",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -83,6 +83,7 @@ const AppliancesPage = () => {
             <Container>
               {appliances.map((appliance, index) => {
                 const rate = (appliance.electricity * currentPrice).toFixed(2);
+                const rateColor = rate > appliance.idealPrice ? "red" : "green";
                 return (
                   <Box
                     key={index}
@@ -92,10 +93,9 @@ const AppliancesPage = () => {
                       padding: "1rem",
                       marginBottom: "1rem",
                       display: "flex",
-                      flexDirection: "column",
-                      gap: "0.25rem",
-                      height: "5rem",
-                      
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      height: "3rem",
                     }}
                   >
                     <Typography
@@ -108,11 +108,14 @@ const AppliancesPage = () => {
                       {appliance.applianceName}
                     </Typography>
                     <Typography
-                    sx={{
-                      fontSize: 24,
-                      fontWeight: 500,
-                      color: "black",
-                    }}>Current price: {rate} c/h</Typography>
+                      sx={{
+                        fontSize: 24,
+                        fontWeight: 500,
+                        color: rateColor,
+                      }}
+                    >
+                      {rate} c/h
+                    </Typography>
                   </Box>
                 );
               })}

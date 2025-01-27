@@ -156,7 +156,7 @@ const PriceChartPage = () => {
     >
       <Box
         sx={{
-          height: "5rem",
+          height: "8rem",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
