@@ -21,7 +21,7 @@ function App() {
         <Routes>
           <Route path="/home" element={<HomePage />} />
           <Route path="/chart" element={<ChartPage />} />
-          <Route path="/appliances" element={<AppliancesPage />} />
+          <Route path="/*" element={<AppliancesPage />} />
           <Route path="/AddAppliance" element={<AddAppliance />} />
           <Route path="/" element={<Navigate to="/home" replace />} />
         </Routes>

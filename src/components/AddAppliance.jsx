@@ -1,27 +1,22 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Container, Typography, Box, Button } from "@mui/material";
-import axios from 'axios';
 
-const AddAppliance = () => {
+const AddAppliance = ({ onAddAppliance }) => {
   const [applianceName, setApplianceName] = useState("");
   const [electricity, setElectricity] = useState(0);
   const [idealPrice, setIdealPrice] = useState(0);
   const navigate = useNavigate();
 
-  const handleSave = async () => {
+  const handleSave = () => {
     const applianceData = {
       applianceName,
       electricity,
       idealPrice,
     };
 
-    try {
-      await axios.post('http://localhost:5000/save-appliance', applianceData);
-      navigate('/appliances');
-    } catch (error) {
-      console.error('Error saving appliance data:', error);
-    }
+    onAddAppliance(applianceData);
+    navigate('/appliances');
   };
 
   return (
@@ -58,7 +53,7 @@ const AddAppliance = () => {
           sx={{
             display: 'flex',
             flexDirection: 'column',
-            gap: '0.5rem',
+            gap: '1rem',
           }}
         >
           <input
@@ -67,7 +62,7 @@ const AddAppliance = () => {
             placeholder="Appliance Name"
             onChange={(e) => setApplianceName(e.target.value)}
             style={{
-              height: '4rem',
+              height: '100%',
               width: '100%',
               textAlign: 'center',
               fontSize: '1.5rem',
@@ -84,7 +79,7 @@ const AddAppliance = () => {
             placeholder="Consumption (kWh)"
             onChange={(e) => setElectricity(e.target.value)}
             style={{
-              height: '4rem',
+              height: '100%',
               width: '100%',
               textAlign: 'center',
               fontSize: '1.5rem',
@@ -101,7 +96,7 @@ const AddAppliance = () => {
             placeholder="Ideal price (c/kWh)"
             onChange={(e) => setIdealPrice(e.target.value)}
             style={{
-              height: '4rem',
+              height: '100%',
               width: '100%',
               textAlign: 'center',
               fontSize: '1.5rem',
@@ -121,27 +116,22 @@ const AddAppliance = () => {
             marginTop: '1rem',
           }}
         >
-        <Link to="/appliances" style={{ 
-            width: '100%', 
-            textDecoration: 'none' 
-        }}>
           <Button
             onClick={handleSave}
             sx={{
-                backgroundColor: "#21BF73",
-                color: "white",
-                fontSize: '1.5rem',
-                "&:hover": { backgroundColor: "#12663E" },
+              backgroundColor: "#21BF73",
+              color: "white",
+              fontSize: '1.5rem',
+              "&:hover": { backgroundColor: "#12663E" },
               borderRadius: "20px",
-              border: "2px solid rgb(219, 219, 219)",              
+              border: "2px solid rgb(219, 219, 219)",
               textAlign: "center",
               width: "60%",
-              textTransform: "none" 
+              textTransform: "none"
             }}
           >
             Save ✓
           </Button>
-          </Link>
         </Box>
       </Container>
     </Box>

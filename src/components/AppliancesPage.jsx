@@ -1,96 +1,132 @@
-import { Box, Container, Button, Divider, Typography } from "@mui/material";
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { Box, Typography, Button, Container } from "@mui/material";
+import { Link, Route, Routes } from "react-router-dom";
+import axios from 'axios';
+import AddAppliance from "./AddAppliance";
 
 const AppliancesPage = () => {
-  
-  const [applianceName, setApplianceName] = useState("");
-  const [electricity, setElectricity] = useState(0);
-  const [idealPrice, setIdealPrice] = useState(0);
+  const [appliances, setAppliances] = useState([]);
+  const [currentPrice, setCurrentPrice] = useState(0.0);
 
+  const fetchCurrentPrice = async () => {
+    const start = new Date();
+
+    try {
+      const response = await fetch(
+        `https://sahkotin.fi/prices?fix&vat&start=${start.toISOString()}`
+      );
+      const data = await response.json();
+
+      const price = (data.prices[0].value / 10).toFixed(2);
+      setCurrentPrice(price);
+    } catch (error) {
+      console.error("Error fetching price data:", error);
+    }
+  };
+
+  const fetchAppliances = async () => {
+    try {
+      const response = await axios.get('http://localhost:5000/appliances');
+      setAppliances(response.data);
+    } catch (error) {
+      console.error('Error fetching appliances:', error);
+    }
+  };
+
+  const handleAddAppliance = (applianceData) => {
+    setAppliances((prevAppliances) => [...prevAppliances, applianceData]);
+  };
+
+  useEffect(() => {
+    fetchCurrentPrice();
+    fetchAppliances();
+  }, []);
 
   return (
-    <Box
-      sx={{
-        height: "100%",
-        display: "flex",
-        flexDirection: "column",
-        gap: "1rem",
-        backgroundImage: "linear-gradient(to bottom, #21BF73, #12663E)",
-      }}
-    >
-      <Box
-        sx={{
-          height: "5rem",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          backgroundColor: "white",
-          borderRadius: "5px",
-        }}
-      >
-        <Typography
-          sx={{
-            color: "black",
-            fontSize: 32,
-            fontWeight: 400,
-          }}
-        >
-          Appliances
-        </Typography>
-      </Box>
-      <Container>
-        <Box
-          sx={{
-            backgroundColor: "white",
-            borderRadius: "5px",
-            padding: "1rem",
-            height: "4rem",
-            display: "flex", 
-            justifyContent: "space-between", 
-          }}
-        >
-          <Typography
+    <Routes>
+      <Route
+        path="/add-appliance"
+        element={<AddAppliance onAddAppliance={handleAddAppliance} />}
+      />
+      <Route
+        path="/appliances"
+        element={
+          <Box
             sx={{
-              fontSize: 30,
-              fontWeight: 500,
-              color: "black",
-              textAlign: "left",
+              height: "100%",
+              display: "flex",
+              flexDirection: "column",
+              gap: "1rem",
+              backgroundImage: "linear-gradient(to bottom, #21BF73, #12663E)",
             }}
           >
-            {applianceName} Sauna 
-          </Typography>
-          <Typography
-            sx={{
-              fontSize: 30,
-              fontWeight: 500,
-              color: "black",
-              textAlign: "left",
-            }}
-          >
-            ({idealPrice}) c/h
-          </Typography>
-        </Box>
-        <Divider sx={{ margin: "1rem 0" }} />
-        <Link to="/AddAppliance">
-            <Button
+            <Box
               sx={{
-                backgroundColor: "#21BF73",
-                color: "white",
-                fontSize: '1.25rem',
-                "&:hover": { backgroundColor: "#12663E" },
-              borderRadius: "20px",
-              border: "2px solid rgb(219, 219, 219)",              
-              textAlign: "center",
-              width: "60%",
-              textTransform: "none" 
-            }}
+                height: "5rem",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                backgroundColor: "white",
+                borderRadius: "5px",
+              }}
             >
-              Add Appliance
-            </Button>
-          </Link>
-      </Container>
-    </Box>
+              <Typography
+                sx={{
+                  color: "black",
+                  fontSize: 32,
+                  fontWeight: 400,
+                }}
+              >
+                Appliances
+              </Typography>
+            </Box>
+            <Container>
+              {appliances.map((appliance, index) => (
+                <Box
+                  key={index}
+                  sx={{
+                    backgroundColor: "white",
+                    borderRadius: "5px",
+                    padding: "1rem",
+                    marginBottom: "1rem",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "0.5rem",
+                  }}
+                >
+                  <Typography
+                    sx={{
+                      fontSize: 24,
+                      fontWeight: 500,
+                      color: "black",
+                    }}
+                  >
+                    {appliance.applianceName}
+                  </Typography>
+                  <Typography>Consumption: {appliance.electricity} kWh</Typography>
+                  <Typography>Ideal Price: {appliance.idealPrice} c/kWh</Typography>
+                  <Typography>Current Price: {currentPrice} c/kWh</Typography>
+                  <Typography>Rate: {(currentPrice * appliance.electricity).toFixed(2)} c</Typography>
+                </Box>
+              ))}
+              <Link to="/add-appliance" style={{ textDecoration: 'none' }}>
+                <Button
+                  sx={{
+                    backgroundColor: "#21BF73",
+                    color: "white",
+                    fontSize: 18,
+                    "&:hover": { backgroundColor: "#12663E" },
+                    textTransform: "none",
+                  }}
+                >
+                  Add New Appliance
+                </Button>
+              </Link>
+            </Container>
+          </Box>
+        }
+      />
+    </Routes>
   );
 };
 
