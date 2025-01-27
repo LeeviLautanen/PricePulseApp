@@ -16,7 +16,11 @@ const AddAppliance = ({ onAddAppliance }) => {
     };
 
     onAddAppliance(applianceData);
-    navigate('/appliances');
+    navigate("/appliances");
+  };
+
+  const handleCancel = () => {
+    navigate("/appliances");
   };
 
   return (
@@ -62,7 +66,7 @@ const AddAppliance = ({ onAddAppliance }) => {
             placeholder="Appliance Name"
             onChange={(e) => setApplianceName(e.target.value)}
             style={{
-              height: '100%',
+              height: '3rem',
               width: '100%',
               textAlign: 'center',
               fontSize: '1.5rem',
@@ -79,7 +83,7 @@ const AddAppliance = ({ onAddAppliance }) => {
             placeholder="Consumption (kWh)"
             onChange={(e) => setElectricity(e.target.value)}
             style={{
-              height: '100%',
+              height: '3rem',
               width: '100%',
               textAlign: 'center',
               fontSize: '1.5rem',
@@ -96,7 +100,7 @@ const AddAppliance = ({ onAddAppliance }) => {
             placeholder="Ideal price (c/kWh)"
             onChange={(e) => setIdealPrice(e.target.value)}
             style={{
-              height: '100%',
+              height: '3rem',
               width: '100%',
               textAlign: 'center',
               fontSize: '1.5rem',
@@ -114,6 +118,7 @@ const AddAppliance = ({ onAddAppliance }) => {
             alignItems: 'center',
             width: '100%',
             marginTop: '1rem',
+            gap: '1rem',
           }}
         >
           <Button
@@ -131,6 +136,23 @@ const AddAppliance = ({ onAddAppliance }) => {
             }}
           >
             Save ✓
+          </Button>
+          <br></br>
+          <Button
+            onClick={handleCancel}
+            sx={{
+              backgroundColor: "rgb(188, 73, 73)",
+              color: "white",
+              fontSize: '1.5rem',
+              "&:hover": { backgroundColor: "rgb(102, 19, 19)" },
+              borderRadius: "20px",
+              border: "2px solid rgb(219, 219, 219)",
+              textAlign: "center",
+              width: "60%",
+              textTransform: "none"
+            }}
+          >
+            Cancel ✗
           </Button>
         </Box>
       </Container>

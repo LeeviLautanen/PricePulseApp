@@ -81,34 +81,41 @@ const AppliancesPage = () => {
               </Typography>
             </Box>
             <Container>
-              {appliances.map((appliance, index) => (
-                <Box
-                  key={index}
-                  sx={{
-                    backgroundColor: "white",
-                    borderRadius: "5px",
-                    padding: "1rem",
-                    marginBottom: "1rem",
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "0.5rem",
-                  }}
-                >
-                  <Typography
+              {appliances.map((appliance, index) => {
+                const rate = (appliance.electricity * currentPrice).toFixed(2);
+                return (
+                  <Box
+                    key={index}
+                    sx={{
+                      backgroundColor: "white",
+                      borderRadius: "5px",
+                      padding: "1rem",
+                      marginBottom: "1rem",
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: "0.25rem",
+                      height: "5rem",
+                      
+                    }}
+                  >
+                    <Typography
+                      sx={{
+                        fontSize: 30,
+                        fontWeight: 500,
+                        color: "black",
+                      }}
+                    >
+                      {appliance.applianceName}
+                    </Typography>
+                    <Typography
                     sx={{
                       fontSize: 24,
                       fontWeight: 500,
                       color: "black",
-                    }}
-                  >
-                    {appliance.applianceName}
-                  </Typography>
-                  <Typography>Consumption: {appliance.electricity} kWh</Typography>
-                  <Typography>Ideal Price: {appliance.idealPrice} c/kWh</Typography>
-                  <Typography>Current Price: {currentPrice} c/kWh</Typography>
-                  <Typography>Rate: {(currentPrice * appliance.electricity).toFixed(2)} c</Typography>
-                </Box>
-              ))}
+                    }}>Current price: {rate} c/h</Typography>
+                  </Box>
+                );
+              })}
               <Link to="/add-appliance" style={{ textDecoration: 'none' }}>
                 <Button
                   sx={{

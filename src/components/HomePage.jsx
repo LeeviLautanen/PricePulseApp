@@ -107,24 +107,31 @@ const HomePage = () => {
           </Button>
         </Link>
       </Box>
-
+      <br></br>
       <Box
         sx={{
           backgroundColor: "white",
           borderRadius: "5px",
+          designlayout: "flex",
           padding: "1rem",
-          height: "10rem",
+          height: "3rem",
         }}
       >
-        <Typography
-          sx={{
-            fontSize: 20,
-            fontWeight: 500,
-            color: "black",
-          }}
-        >
-          Content 2
-        </Typography>
+        <Link to="/appliances">
+          <Button
+            sx={{
+              width: "100%",
+              backgroundColor: "#21BF73",
+              align: "center",
+              color: "white",
+              fontSize: 18,
+              "&:hover": { backgroundColor: "#12663E" },
+              textTransform: "none",
+            }}
+          >
+            Go to Appliances →
+          </Button>
+        </Link>
       </Box>
     </Container>
   );
