@@ -126,12 +126,12 @@ const AddAppliance = ({ onAddAppliance }) => {
             sx={{
               backgroundColor: "#21BF73",
               color: "white",
-              fontSize: "1.5rem",
+              fontSize: "1rem",
               "&:hover": { backgroundColor: "#12663E" },
               borderRadius: "20px",
-              border: "2px solid rgb(219, 219, 219)",
+              border: "0px solid rgb(219, 219, 219)",
               textAlign: "center",
-              width: "60%",
+              width: "40%",
               textTransform: "none",
             }}
           >
@@ -143,12 +143,12 @@ const AddAppliance = ({ onAddAppliance }) => {
             sx={{
               backgroundColor: "rgb(188, 73, 73)",
               color: "white",
-              fontSize: "1.5rem",
+              fontSize: "1rem",
               "&:hover": { backgroundColor: "rgb(102, 19, 19)" },
               borderRadius: "20px",
-              border: "2px solid rgb(219, 219, 219)",
+              border: "0px solid rgb(219, 219, 219)",
               textAlign: "center",
-              width: "60%",
+              width: "40%",
               textTransform: "none",
             }}
           >
